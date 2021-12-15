@@ -4,13 +4,13 @@ import os, sys
 # import seaborn as sns
 import matplotlib.pyplot as plt
 import glob
-# import PIL.Image as Image
+from PIL import Image, ImageOps
 # from plotly.subplots import make_subplots
 # from warnings import filterwarnings
 from io import StringIO, BytesIO
 import streamlit as st
 import torch
-import cv2
+# import cv2
 # import argparse
 from tempfile import NamedTemporaryFile
 import warnings
@@ -22,8 +22,10 @@ warnings.filterwarnings('ignore')
 # args = vars(ap.parse_args())
 
 def load_image(img_path, resize=True):
-  img = cv2.cvtColor(cv2.imread(str(img_path)), cv2.COLOR_BGR2RGB)
-  img = cv2.resize(img, (300, 300), interpolation = cv2.INTER_AREA)
+  # img = cv2.cvtColor(cv2.imread(str(img_path)), cv2.COLOR_BGR2RGB)
+  # img = cv2.resize(img, (300, 300), interpolation = cv2.INTER_AREA)
+  img = Image.open(img_path)
+  img = ImageOps.exif_transpose(img.resize((300, 300), Image.ANTIALIAS))
   return img
 
 def show_grid(image_paths):
