@@ -73,7 +73,7 @@ device = torch.cuda.get_device_properties(0).name if torch.cuda.is_available() e
 
 model = torch.hub.load('ultralytics/yolov5', 'custom', path=location, device=device, force_reload=False)
 
-buffer = st.file_uploader("Upload water meter reading image", type='jpg')
+buffer = st.file_uploader("Upload water meter reading image", type=['png', 'jpeg', 'jpg'])
 # results = model(args['img'])
 # format_predictions(args['img'], results)
 if buffer:
