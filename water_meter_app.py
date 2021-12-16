@@ -78,7 +78,7 @@ buffer = st.file_uploader("Upload water meter reading image", type=['png', 'jpeg
 # format_predictions(args['img'], results)
 if buffer:
   # https://discuss.streamlit.io/t/image-upload-problem/4810/5
-  temp_file = NamedTemporaryFile(delete=False)
+  temp_file = NamedTemporaryFile(delete=True)
   temp_file.write(buffer.getvalue())
   results = model.to(device)(temp_file.name)
   format_predictions(temp_file.name, results)
