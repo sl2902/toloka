@@ -65,20 +65,30 @@ def format_predictions(img_path, results, num_classes=8):
   plt.axis('off')
   st.pyplot(fig)
 
+@st.cache
+def load_model(src, path, device, reload=False):
+  return torch.hub.load(src, 'custom', path=path, device=device, force_reload=reload)
+
 yolo_path = os.path.join(os.getcwd(), 'yolov5')
 # location = 'runs/train/yolov5x_water_meter/weights/best.pt'
 location = 'weights/best.pt'
 best_run = os.path.join(os.getcwd(), 'yolov5', location)
 device = torch.cuda.get_device_properties(0).name if torch.cuda.is_available() else 'cpu'
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path=location, device=device, force_reload=False)
+#model = torch.hub.load('ultralytics/yolov5', 'custom', path=location, device=device, force_reload=False)
+src = 'ultralytics/yolov5'
+model = load_model(src, path=location, device=device) 
 
 buffer = st.file_uploader("Upload water meter reading image", type=['png', 'jpeg', 'jpg'])
+@st.cache(ttl=24*3600, suppress_st_warning=True)
+def predict(inp):
 # results = model(args['img'])
 # format_predictions(args['img'], results)
-if buffer:
-  # https://discuss.streamlit.io/t/image-upload-problem/4810/5
-  temp_file = NamedTemporaryFile(delete=True)
-  temp_file.write(buffer.getvalue())
-  results = model.to(device)(temp_file.name)
-  format_predictions(temp_file.name, results)
+  if inp:
+    # https://discuss.streamlit.io/t/image-upload-problem/4810/5
+    temp_file = NamedTemporaryFile(delete=True)
+    temp_file.write(inp.getvalue())
+    results = model.to(device)(temp_file.name)
+    format_predictions(temp_file.name, results)
+
+predict(buffer)
