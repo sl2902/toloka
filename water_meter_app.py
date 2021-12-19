@@ -80,7 +80,7 @@ src = 'ultralytics/yolov5'
 model = load_model(src, path=location, device=device) 
 
 buffer = st.file_uploader("Upload water meter reading image", type=['png', 'jpeg', 'jpg'])
-@st.cache(ttl=24*3600, suppress_st_warning=True)
+@st.cache(ttl=24*3600, suppress_st_warning=True, show_spinner=False)
 def predict(inp):
 # results = model(args['img'])
 # format_predictions(args['img'], results)
