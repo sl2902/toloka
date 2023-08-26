@@ -80,10 +80,11 @@ device = torch.cuda.get_device_properties(0).name if torch.cuda.is_available() e
 
 #model = torch.hub.load('ultralytics/yolov5', 'custom', path=location, device=device, force_reload=False)
 src = 'ultralytics/yolov5'
-model = load_model(src, path=location, device=device) 
+# update - 26-08-2023. Model not found error as cache was out of dates
+model = load_model(src, path=location, device=device, reload=True) 
 
 buffer = st.file_uploader("Upload water meter reading image", type=['png', 'jpeg', 'jpg'])
-@st.cache(ttl=24*3600, suppress_st_warning=True, show_spinner=False)
+@st.cache(ttl=5*60, suppress_st_warning=True, show_spinner=False)
 def predict(inp):
 # results = model(args['img'])
 # format_predictions(args['img'], results)
