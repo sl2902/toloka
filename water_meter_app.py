@@ -64,7 +64,7 @@ def format_predictions(img_path, results, num_classes=8):
     reading = float(reading)
     plt.title('Reading ' +  str(reading) + " m\u00b3")
   except:
-    plt.title('Is this a valid water meter image...?')
+    plt.title('Unable to fetch reading. Either the image is invalid or it is not clear')
   plt.axis('off')
   st.pyplot(fig)
 
