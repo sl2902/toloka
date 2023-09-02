@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import os, sys
-# import seaborn as sns
 import matplotlib.pyplot as plt
 import glob
 # from PIL import Image, ImageOps
@@ -81,7 +80,8 @@ device = torch.cuda.get_device_properties(0).name if torch.cuda.is_available() e
 #model = torch.hub.load('ultralytics/yolov5', 'custom', path=location, device=device, force_reload=False)
 src = 'ultralytics/yolov5'
 # update - 26-08-2023. Model not found error as cache was out of dates
-model = load_model(src, path=location, device=device, reload=True) 
+# update - 02-09-2023. Reverted to reload=False
+model = load_model(src, path=location, device=device) 
 
 buffer = st.file_uploader("Upload water meter reading image", type=['png', 'jpeg', 'jpg'])
 @st.cache(ttl=5*60, suppress_st_warning=True, show_spinner=False)
