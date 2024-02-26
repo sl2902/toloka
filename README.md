@@ -26,5 +26,5 @@ This could be further improved by doing the following:
 
 # App
 I built an app using [Streamlit](https://docs.streamlit.io/library/api-reference)
-You can access it [here](https://share.streamlit.io/sl2902/toloka/main/water_meter_app.py)
+You can access it [here](https://water-meter-reader.streamlit.app)
 
